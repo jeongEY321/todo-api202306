@@ -46,4 +46,7 @@ public class UserService {
 
     }
 
+    public boolean isDuplicate(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
