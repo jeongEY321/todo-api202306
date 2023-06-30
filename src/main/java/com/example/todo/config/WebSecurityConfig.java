@@ -37,16 +37,16 @@ public class WebSecurityConfig {
                 .and()
                 .csrf().disable()
                 .httpBasic().disable()
-                //세션 인증을 사용하지 않겠다
+                //세션 인증을 사용하지 않겠다 (세션 만들지 말라는 메서드 아래 두 줄)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // 어떤 요청에서 인증을 안 할 것이지 설정, 언제 할 것인지 설정
+                //어떤 요청에서 인증을 안 할 것인지 설정, 언제 할 것인지 설정
                 .authorizeRequests()
-                .antMatchers(HttpMethod.PUT, "/api/auth/promote")
-                .authenticated()
-                .antMatchers( "/", "/api/auth/**").permitAll()
-     //           .antMatchers(HttpMethod.POST, "/api/todos").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/auth/promote").authenticated()
+                .antMatchers("/api/auth/load-profile").authenticated()
+                .antMatchers("/", "/api/auth/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "api/todos").hasRole("ADMIN"); 어드민만 들어갈 수 있음
                 .anyRequest().authenticated();
 
         //토큰 인증 필터 연결
